@@ -1,9 +1,10 @@
 import { Router } from "express";
-
 const authRouter = Router();
-authRouter.get("/", (req, res) => {
-  res.send("this is elon");
-});
+
+
+authRouter.post("/register",)
+
+
 
 
 export default authRouter;
