@@ -3,6 +3,7 @@ import type { LoginBody } from "../types/user.ts";
 import type { Request, Response } from "express";
 import User from "../models/user-model.js";
 import jwt from "jsonwebtoken";
+import { json } from "node:stream/consumers";
 const userController = {
   async register(req: Request, res: Response) {
     const { email, password } = req.body as LoginBody;
@@ -27,8 +28,18 @@ const userController = {
     );
     return res.status(201).json({ message: "Registration successfull", token });
   },
-  async login(){
-    
-  }
+  // creating login functions
+  async login(req: Request, res: Response) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "user not found!" });
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch)
+      return res.status(401).json({ message: "invalid password" });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, {
+      expiresIn: "24h",
+    });
+    return res.status(200).json({ user, token });
+  },
 };
 export default userController;
