@@ -9,14 +9,13 @@ const userController = {
     const { email, password } = req.body as LoginBody;
     // hasing the password :
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).send({ message: "Email user already exist" });
     }
     // insert data in db
     const user = await User.create({ email, password: hashedPassword });
-    // creating acessToken jwt token
+    // creating accessToken jwt token
     const token = jwt.sign(
       {
         userId: user._id,
@@ -39,7 +38,24 @@ const userController = {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
     });
-    return res.status(200).json({ user, token });
+    // adding httpOnly cookie
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json({ message: "Login Successful", user });
+  },
+  logout(req: Request, res: Response) {
+    res.clearCookie("accessToken" , {
+      httpOnly: true ,
+      secure : process.env.NODE_ENV === "production",
+      sameSite :"lax"
+    })
+
+  return res.status(200).json({message : "logout_successfull"})
   },
 };
 export default userController;
