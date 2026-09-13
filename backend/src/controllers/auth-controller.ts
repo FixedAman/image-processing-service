@@ -3,7 +3,6 @@ import type { LoginBody } from "../types/user.ts";
 import type { Request, Response } from "express";
 import User from "../models/user-model.js";
 import jwt from "jsonwebtoken";
-import { json } from "node:stream/consumers";
 const userController = {
   async register(req: Request, res: Response) {
     const { email, password } = req.body as LoginBody;
@@ -49,13 +48,12 @@ const userController = {
     return res.status(200).json({ message: "Login Successful", user });
   },
   logout(req: Request, res: Response) {
-    res.clearCookie("accessToken" , {
-      httpOnly: true ,
-      secure : process.env.NODE_ENV === "production",
-      sameSite :"lax"
-    })
-
-  return res.status(200).json({message : "logout_successfull"})
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+    return res.status(200).json({ message: "logout_successfull" });
   },
 };
 export default userController;
