@@ -6,5 +6,4 @@ const authRouter = Router();
 authRouter.post("/register", userController.register);
 authRouter.post("/login", userController.login);
 authRouter.post("/logout", authenticateJWT, userController.logout);
-
 export default authRouter;
