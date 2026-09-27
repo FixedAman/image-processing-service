@@ -8,6 +8,7 @@ function serverOn() {
   app.listen(PORT, () => {
     console.log(`starting ${PORT}`);
     dbConnection();
+    
   });
 }
 serverOn();

@@ -1,7 +1,6 @@
 import { Router } from "express";
-import imageController, {
-  upload,
-} from "../controllers/file-upload-controller.js";
+import imageController from "../controllers/file-upload-controller.js";
+import { upload } from "../middleware/multer.middlewar.js";
 const imageRouter = Router();
 
 imageRouter.post(
@@ -9,3 +8,5 @@ imageRouter.post(
   upload.single("mainImage"),
   imageController.uploadImage,
 );
+
+export default imageRouter;
