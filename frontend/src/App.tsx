@@ -1,12 +1,10 @@
 const App = ()=>{
-  const handleSubmit = ()=>{
-    
-  }
+  
   return <>
  <div className="image_data">
- <form action="http://localhost:5173/upload" method="POST" encType="multipart/form-data" >
+ <form action="http://localhost:8000/api/image/submit" method="POST" encType="multipart/form-data" >
  <input type="file" name="mainImage" />
- <button onSubmit={handleSubmit}>submit</button>
+ <button type="submit">submit</button>
  </form>
  </div>
   </>
