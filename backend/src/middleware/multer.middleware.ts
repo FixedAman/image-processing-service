@@ -3,13 +3,13 @@ import type { Request, Response } from "express";
 import cloudinary from "../config/cloudinary-config.js";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
-// storing data in local storage first
+// storing data in cloudinary
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
     return {
-      folder: "test-image",
-      format: "jpg",
+      folder: "image-processing/original",
+      format: "png",
     };
   },
 });
