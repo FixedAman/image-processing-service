@@ -8,11 +8,10 @@ declare global {
     }
   }
 }
-declare global {
-  namespace CloudinaryStorage {
-    interface params {
-      folder?: string;
-    }
-  }
-}
-export {};
+// declare global {
+//   namespace CloudinaryStorage {
+//     interface params {
+//       folder?: string;
+//     }
+//   }
+// }
