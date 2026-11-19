@@ -21,4 +21,3 @@ export function authenticateJWT(
     return res.status(403).json({ message: "Token verification failed" });
   }
 }
-
