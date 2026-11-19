@@ -8,5 +8,5 @@ imageRouter.post(
   upload.single("mainImage"),
   imageController.uploadImage,
 );
-
+imageRouter.post("/")
 export default imageRouter;
